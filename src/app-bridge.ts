@@ -18,6 +18,9 @@ import {
   ListResourceTemplatesRequestSchema,
   ListResourceTemplatesResult,
   ListResourceTemplatesResultSchema,
+  ListToolsRequest,
+  ListToolsRequestSchema,
+  ListToolsResultSchema,
   LoggingMessageNotification,
   LoggingMessageNotificationSchema,
   PingRequest,
@@ -1243,6 +1246,22 @@ export class AppBridge extends Protocol<
 
   /** @deprecated Use {@link teardownResource} instead */
   sendResourceTeardown: AppBridge["teardownResource"] = this.teardownResource;
+
+  sendCallTool(params: CallToolRequest["params"], options?: RequestOptions) {
+    return this.request(
+      { method: "tools/call", params },
+      CallToolResultSchema,
+      options,
+    );
+  }
+
+  sendListTools(params: ListToolsRequest["params"], options?: RequestOptions) {
+    return this.request(
+      { method: "tools/list", params },
+      ListToolsResultSchema,
+      options,
+    );
+  }
 
   /**
    * Connect to the Guest UI via transport and optionally set up message forwarding.
