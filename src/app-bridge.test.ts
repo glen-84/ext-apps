@@ -1404,6 +1404,7 @@ describe("App <-> AppBridge integration", () => {
       });
     });
   });
+
   describe("AppBridge without MCP client (manual handlers)", () => {
     let app: App;
     let bridge: AppBridge;
