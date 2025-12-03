@@ -52,7 +52,7 @@ import {
   McpUiRequestDisplayModeResultSchema,
 } from "./types";
 import { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
-import { safeParseAsync, ZodRawShape } from "zod/v4";
+import { safeParseAsync } from "zod/v4";
 import {
   RegisteredTool,
   ToolCallback,
