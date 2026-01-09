@@ -297,7 +297,7 @@ export class App extends Protocol<AppRequest, AppNotification, AppResult> {
         delete app._registeredTools[name];
         app.sendToolListChanged();
       },
-      callback: (async (args: any, extra: RequestHandlerExtra) => {
+      handler: (async (args: any, extra: RequestHandlerExtra) => {
         if (!registeredTool.enabled) {
           throw new Error(`Tool ${name} is disabled`);
         }
@@ -313,7 +313,7 @@ export class App extends Protocol<AppRequest, AppNotification, AppResult> {
           }
           args = parseResult.data;
         }
-        const result = await cb(args, extra);
+        const result = await cb(args, extra as any);
         if (config.outputSchema) {
           const parseResult = await safeParseAsync(
             config.outputSchema as any,
@@ -348,7 +348,7 @@ export class App extends Protocol<AppRequest, AppNotification, AppResult> {
       if (!tool) {
         throw new Error(`Tool ${params.name} not found`);
       }
-      return tool.callback(params.arguments as any, extra);
+      return (tool.handler as any)(params.arguments as any, extra);
     };
     this.onlisttools = async (_params, _extra) => {
       const tools: Tool[] = Object.entries(this._registeredTools)
